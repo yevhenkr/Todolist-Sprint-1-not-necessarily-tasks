@@ -3,7 +3,6 @@ import {DataType} from "./App";
 
 
 export function Tasks(props: DataType) {
-    debugger
     return (<>
             <div>{props.title} </div>
             <span>{props.students[1]}</span>
