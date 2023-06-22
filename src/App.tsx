@@ -1,31 +1,22 @@
 import React from 'react';
 import './App.css';
+import {Button} from "./component/Button";
 
-// const MyFirstSubcsribe =()=>{
-//     console.log("Im VASYA")
-// }
-//
-// const MySecondSubcsribe =()=>{
-//     console.log("Im EUGEN")
-// }
-// const onClickHandler=(name:string)=>{
-//     console.log(name)
-// }
-
-const foo1=()=>{
-    //ничего не пердавать
+const Button1Foo=(subsciber:string, age:number)=>{
+    console.log(subsciber + " " + age)
 }
-const foo2=(n:number)=> {
-    console.log(n)
+const Button2Foo=(subsciber:string)=>{
+    console.log(subsciber)
+}
+const Button3Foo=()=>{
+    console.log("Stuped button")
 }
 function App() {
     return (
         <div>
-            {/*<button onClick={() => onClickHandler("VASYA")}>MyFirstSubscriber-1</button>*/}
-            {/*<button onClick={() => onClickHandler("EUGEN")}>MyFirstSubscriber-2</button>*/}
-
-            <button onClick={foo1}>1</button>
-            <button onClick={()=>(foo2(100200))}>2</button>
+            <Button name="MyYouTUbeChanel-1" callBack={()=>Button1Foo("Ivan", 21)}/>
+            <Button name="MyYouTUbeChanel-2" callBack={()=>Button2Foo("Vasya" )}/>
+            <Button name="StypedButton" callBack={Button3Foo}/>
         </div>
     );
 }
