@@ -3,6 +3,25 @@ import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
 
+
+// Hi guys!
+//1.Let`s wrap up our bunch  of filters in a function.
+//How can we do this? We can wrap all our goodies into a new function:
+//     const filteredTasks=()=>{
+//          let tasksForTodolist = tasks;
+//
+//          if (filter === "active") {
+//          return   tasksForTodolist = tasks.filter(t => !t.isDone);
+//          }
+//          if (filter === "completed") {
+//            return  tasksForTodolist = tasks.filter(t => t.isDone);
+//          }
+//          return tasksForTodolist
+//     }
+
+//2.Let`s replace our if`s with  switch.
+
+
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
 function App() {
@@ -48,11 +67,7 @@ function App() {
                       tasks={tasksForTodolist}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
-                      addTask={addTask}>
-                <div>
-                    <div>Many intresting information</div>
-                </div>
-            </Todolist>
+                      addTask={addTask}/>
         </div>
     );
 }
@@ -60,7 +75,12 @@ function App() {
 export default App;
 
 
-//-------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------
+
+// import React, {useState} from 'react';
+// import './App.css';
+// import {Todolist} from './Todolist';
+// import {v1} from 'uuid';
 //
 // export type FilterValuesType = "all" | "active" | "completed";
 //
@@ -73,6 +93,8 @@ export default App;
 //         {id: v1(), title: "Rest API", isDone: false},
 //         {id: v1(), title: "GraphQL", isDone: false},
 //     ]);
+//     let [filter, setFilter] = useState<FilterValuesType>("all");
+//
 //
 //     function removeTask(id: string) {
 //         let filteredTasks = tasks.filter(t => t.id != id);
@@ -85,16 +107,39 @@ export default App;
 //         setTasks(newTasks);
 //     }
 //
-//     let [filter, setFilter] = useState<FilterValuesType>("all");
+//     function changeStatus(taskId: string, isDone: boolean) {
+//         let task = tasks.find(t => t.id === taskId);
+//         if (task) {
+//             task.isDone = isDone;
+//         }
 //
-//     let tasksForTodolist = tasks;
+//         setTasks([...tasks]);
+//     }
 //
-//     if (filter === "active") {
-//         tasksForTodolist = tasks.filter(t => t.isDone === false);
+//
+//     const filteredTasks=()=>{
+//         // let tasksForTodolist = tasks;
+//         //
+//         // if (filter === "active") {
+//         //  return   tasksForTodolist = tasks.filter(t => !t.isDone);
+//         // }
+//         // if (filter === "completed") {
+//         //   return  tasksForTodolist = tasks.filter(t => t.isDone);
+//         // }
+//         // return tasksForTodolist
+//
+//         let tasksForTodolist = tasks;
+//         switch (filter) {
+//             case 'active': {
+//                 return   tasksForTodolist = tasks.filter(t => !t.isDone);
+//             }
+//             case 'completed': {
+//                 return  tasksForTodolist = tasks.filter(t => t.isDone);
+//             }
+//             default:return tasksForTodolist
+//         }
 //     }
-//     if (filter === "completed") {
-//         tasksForTodolist = tasks.filter(t => t.isDone === true);
-//     }
+//
 //
 //     function changeFilter(value: FilterValuesType) {
 //         setFilter(value);
@@ -104,42 +149,11 @@ export default App;
 //     return (
 //         <div className="App">
 //             <Todolist title="What to learn"
-//                       tasks={tasksForTodolist}
+//                       tasks={filteredTasks()}
 //                       removeTask={removeTask}
 //                       changeFilter={changeFilter}
-//                       addTask={addTask}>
-//                 <div>
-//                     <div>Many intresting information</div>
-//                     <div>Many intresting information</div>
-//                     <div>Many intresting information</div>
-//                     <div>Many intresting information</div>
-//                     <div>Many intresting information</div>
-//                 </div>
-//             </Todolist>
-//
-//             <Todolist title="What to learn"
-//                       tasks={tasksForTodolist}
-//                       removeTask={removeTask}
-//                       changeFilter={changeFilter}
-//                       addTask={addTask}>
-//                 <div>
-//                     <div>A lot of boring information</div>
-//                     <div>A lot of boring information</div>
-//                     <div>A lot of boring information</div>
-//                     <input placeholder={'A lot of boring information'}/>
-//                     <div>
-//                         <button>Boring Button 1</button>
-//                         <button>Boring Button 2</button>
-//                         <button>Boring Button 3</button>
-//                     </div>
-//                 </div>
-//             </Todolist>
-//
-//             <Todolist title="What to learn"
-//                       tasks={tasksForTodolist}
-//                       removeTask={removeTask}
-//                       changeFilter={changeFilter}
-//                       addTask={addTask}/>
+//                       addTask={addTask}
+//                       />
 //         </div>
 //     );
 // }

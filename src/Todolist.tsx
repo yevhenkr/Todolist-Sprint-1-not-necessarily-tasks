@@ -1,6 +1,5 @@
-import React, {ChangeEvent, KeyboardEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
-import {useAutoAnimate} from '@formkit/auto-animate/react';
 
 type TaskType = {
     id: string
@@ -14,26 +13,23 @@ type PropsType = {
     removeTask: (taskId: string) => void
     changeFilter: (value: FilterValuesType) => void
     addTask: (title: string) => void
-    children?: React.ReactNode;
 }
-export const Todolist:React.FC<PropsType>=({children, ...props}) => {
-    const [listRef] = useAutoAnimate<HTMLUListElement>()
+
+export function Todolist(props: PropsType) {
+
     let [title, setTitle] = useState('')
-    let onChangeRef = useRef<HTMLInputElement>(null)
+
     const addTask = () => {
-        if (onChangeRef.current !== null) {
-            props.addTask(onChangeRef.current.value);
-            setTitle('');
-        }
+        props.addTask(title);
+        setTitle('');
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
-
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
+        if (e.charCode === 13) {
             addTask();
         }
     }
@@ -43,17 +39,16 @@ export const Todolist:React.FC<PropsType>=({children, ...props}) => {
     const onCompletedClickHandler = () => props.changeFilter('completed');
 
     return <div>
+        <h3>{props.title}</h3>
         <div>
-            <h3>{props.title}</h3>
-            <div>
-                <input //value={title}
-                    // onChange={ onChangeHandler }
-                    ref={onChangeRef}
-                    onKeyPress={onKeyPressHandler}
-                />
-                <button onClick={addTask}>+</button>
-            </div>
-            <ul ref={listRef}>{
+            <input value={title}
+                   onChange={onChangeHandler}
+                   onKeyPress={onKeyPressHandler}
+            />
+            <button onClick={addTask}>+</button>
+        </div>
+        <ul>
+            {
                 props.tasks.map(t => {
 
                     const onClickHandler = () => props.removeTask(t.id)
@@ -65,13 +60,11 @@ export const Todolist:React.FC<PropsType>=({children, ...props}) => {
                     </li>
                 })
             }
-            </ul>
-            <div>
-                <button onClick={onAllClickHandler}>All</button>
-                <button onClick={onActiveClickHandler}>Active</button>
-                <button onClick={onCompletedClickHandler}>Completed</button>
-            </div>
+        </ul>
+        <div>
+            <button onClick={onAllClickHandler}>All</button>
+            <button onClick={onActiveClickHandler}>Active</button>
+            <button onClick={onCompletedClickHandler}>Completed</button>
         </div>
-        {children}
     </div>
 }
