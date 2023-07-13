@@ -47,13 +47,20 @@ function App() {
 
     let [filter, setFilter] = useState<FilterValuesType>('all');
 
-    let tasksForTodolist = tasks;
-
-    if (filter === 'active') {
-        tasksForTodolist = tasks.filter(t => t.isDone === false);
-    }
-    if (filter === 'completed') {
-        tasksForTodolist = tasks.filter(t => t.isDone === true);
+    const filteredTasks = () => {
+        let tasksForTodolist = tasks;
+        switch (filter) {
+            case 'active':
+                return tasksForTodolist = tasks.filter(t => !t.isDone);
+                break;
+            case 'completed':
+                return tasksForTodolist = tasks.filter(t => t.isDone);
+                break
+            default:
+                tasksForTodolist = tasks;
+                break;
+        }
+        return tasksForTodolist
     }
 
     function changeFilter(value: FilterValuesType) {
@@ -64,7 +71,7 @@ function App() {
     return (
         <div className="App">
             <Todolist title="What to learn"
-                      tasks={tasksForTodolist}
+                      tasks={filteredTasks()}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask={addTask}/>
